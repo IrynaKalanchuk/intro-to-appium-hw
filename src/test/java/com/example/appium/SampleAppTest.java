@@ -9,6 +9,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -39,10 +40,10 @@ public class SampleAppTest {
             ((AndroidDriver<MobileElement>) driver).startActivity(new Activity("io.appium.android.apis", ".view.TextFields"));
         } else {
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
-            capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "PUT_YOUR_XCODE_VERSION_HERE");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "11.5");
             capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCuiTest");
-            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "PUT_YOUR_DEVICE_NAME_HERE");
-            capabilities.setCapability(MobileCapabilityType.UDID, "PUT_YOUR_DEVICE_UDID_HERE");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 8 Plus (13.5)");
+            capabilities.setCapability(MobileCapabilityType.UDID, "1149864A-1A3E-4C89-AEB2-AAF38872F673");
             capabilities.setCapability(MobileCapabilityType.APP, path + "/TestApp.app.zip");
 
             server = new AppiumServiceBuilder().usingAnyFreePort().build();
@@ -53,9 +54,9 @@ public class SampleAppTest {
 
     @Test
     public void textFieldTest() {
-        // TODO initialise PageView and set "text" to its textField
-
-        // TODO assert that textField equals to "text"
+        PageView pgView = new PageView(driver);
+        pgView.setTextField("text");
+        assertEquals(pgView.getTextField(), "text", "Text field has wrong value");
     }
 
     @AfterClass
